@@ -15,7 +15,7 @@ const productModel = require("../models/ProductModel")
             }
         }
         res.json({
-            message: "category product",
+            message: "Product category",
             data:productByCategory,
             error:false,
             success:true,

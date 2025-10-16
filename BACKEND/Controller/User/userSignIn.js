@@ -30,7 +30,7 @@ async function userSignInController(req,res){
         }
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: 60 * 60 * 8 });
         if(!token){
-            throw new Error("Error while generating token.")
+            throw new Error("Error while generating tokenLogin.")
         }
 
         const tokenOption = {

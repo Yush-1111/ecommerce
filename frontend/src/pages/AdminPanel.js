@@ -12,13 +12,13 @@ const AdminPanel = () => {
         if (user?.role !== ROLE.ADMIN) {
             navigate('/');
         }
-    }, [user]);
+    }, [user, navigate]); // <-- include navigate here
 
     return (
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
-            <aside className="w-64 bg-white shadow-md h-full hidden md:block ">
-                <div className="h-32  bg-blue-500 flex flex-col items-center justify-center space-y-2">
+            <aside className="w-64 bg-white shadow-md h-full hidden md:block">
+                <div className="h-32 bg-blue-500 flex flex-col items-center justify-center space-y-2">
                     <div className="w-20 h-20 border-2 border-white rounded-full overflow-hidden">
                         {user?.profilePic ? (
                             <img src={user?.profilePic} alt={user?.name} className="w-full h-full object-cover" />
