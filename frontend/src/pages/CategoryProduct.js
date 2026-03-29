@@ -21,7 +21,7 @@ const CategoryProduct = () => {
   const [filterCategoryList, setFilterCategoryList] = useState([])
   const [sortBy, setSortBy] = useState("")
 
-  // ✅ useCallback to prevent re-creation on every render
+  // useCallback to prevent re-creation on every render
   const fetchData = useCallback(async () => {
     try {
       const response = await fetch(SummaryApi.filterProduct.url, {
@@ -78,32 +78,28 @@ const CategoryProduct = () => {
   }
 
   return (
-    <div className='container mx-auto p-4'>
-      {/* Desktop version */}
-      <div className='hidden lg:grid grid-cols-[200px,1fr]'>
-        {/* Left side */}
-        <div className='bg-white p-2 min-h-[calc(100vh-120px)] overflow-y-scroll'>
-          {/* Sort By */}
+    <div className='container mx-auto px-3 sm:px-4 py-4'>
+      <div className='grid grid-cols-1 lg:grid-cols-[240px,1fr] gap-4'>
+        <div className='bg-white p-4 rounded-xl shadow-sm h-fit lg:sticky lg:top-28'>
           <div>
-            <h3 className='text-base font-medium text-slate-500 uppercase border-b pb-1 border-slate-300'>Sort by</h3>
-            <form className='text-sm flex flex-col gap-2 py-2'>
-              <div className='flex items-center gap-3'>
+            <h3 className='text-sm sm:text-base font-medium text-slate-500 uppercase border-b pb-2 border-slate-300'>Sort by</h3>
+            <form className='text-sm flex flex-col gap-3 py-3'>
+              <label className='flex items-center gap-3'>
                 <input type='radio' name='sortby' checked={sortBy === "dsc"} onChange={handleOnChangeSortBy} value={"dsc"} />
-                <label>Price: High to Low</label>
-              </div>
-              <div className='flex items-center gap-3'>
+                <span>Price: High to Low</span>
+              </label>
+              <label className='flex items-center gap-3'>
                 <input type='radio' name='sortby' checked={sortBy === "asc"} onChange={handleOnChangeSortBy} value={"asc"} />
-                <label>Price: Low to High</label>
-              </div>
+                <span>Price: Low to High</span>
+              </label>
             </form>
           </div>
 
-          {/* Filter By */}
-          <div>
-            <h3 className='text-base font-medium text-slate-500 uppercase border-b pb-1 border-slate-300'>Category</h3>
-            <form className='text-sm flex flex-col gap-2 py-2'>
+          <div className='mt-2'>
+            <h3 className='text-sm sm:text-base font-medium text-slate-500 uppercase border-b pb-2 border-slate-300'>Category</h3>
+            <form className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 py-3 text-sm'>
               {productCategory.map((categoryName, index) => (
-                <div key={index} className='flex items-center gap-3'>
+                <label key={index} className='flex items-center gap-3'>
                   <input
                     type='checkbox'
                     name='category'
@@ -112,19 +108,25 @@ const CategoryProduct = () => {
                     id={categoryName?.value}
                     onChange={handleSelectCategory}
                   />
-                  <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
-                </div>
+                  <span>{categoryName?.label}</span>
+                </label>
               ))}
             </form>
           </div>
         </div>
 
-        {/* Right side (products) */}
-        <div className='px-4'>
-          <p className='font-medium text-slate-800 text-lg my-2'>Search Results: {data.length}</p>
-          <div className='min-h-[calc(100vh-120px)] overflow-y-scroll max-h-[calc(100vh-120px)]'>
-            {data.length !== 0 && !loading && <VerticalCard data={data} loading={loading} />}
+        <div>
+          <div className='bg-white rounded-xl shadow-sm p-4 mb-4'>
+            <p className='font-medium text-slate-800 text-base sm:text-lg'>Search Results: {data.length}</p>
           </div>
+
+          {data.length === 0 && !loading ? (
+            <div className='bg-white rounded-xl shadow-sm p-6 text-center text-slate-500'>
+              No products found for the selected filters.
+            </div>
+          ) : (
+            <VerticalCard data={data} loading={loading} />
+          )}
         </div>
       </div>
     </div>

@@ -34,21 +34,21 @@ const HorizontialCardProduct = ({ category, heading }) => {
   const scrollRight = () => (scrollElement.current.scrollLeft += 500);
 
   return (
-    <div className="container mx-auto px-4 my-6 relative">
-      <h2 className="text-2xl font-semibold py-4">{heading || 'Products'}</h2>
+    <div className="container mx-auto px-3 sm:px-4 my-6 relative">
+      <h2 className="text-xl sm:text-2xl font-semibold py-4">{heading || 'Products'}</h2>
 
       <div
-        className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none transition-all relative"
+        className="flex items-stretch gap-3 sm:gap-4 md:gap-6 overflow-x-auto scrollbar-none transition-all relative pb-2"
         ref={scrollElement}
       >
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block"
+          className="bg-white shadow-md rounded-full p-2 absolute left-0 top-1/2 -translate-y-1/2 text-lg hidden lg:block z-10"
           onClick={scrollLeft}
         >
           <FaAngleLeft />
         </button>
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block"
+          className="bg-white shadow-md rounded-full p-2 absolute right-0 top-1/2 -translate-y-1/2 text-lg hidden lg:block z-10"
           onClick={scrollRight}
         >
           <FaAngleRight />
@@ -58,9 +58,9 @@ const HorizontialCardProduct = ({ category, heading }) => {
           ? loadingList.map((_, index) => (
               <div
                 key={index}
-                className="w-full min-w-[200px] md:min-w-[320px] max-w-[200px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex"
+                className="w-full min-w-[260px] sm:min-w-[320px] max-w-[260px] sm:max-w-[320px] min-h-[160px] bg-white rounded-xl shadow flex flex-col sm:flex-row overflow-hidden"
               >
-                <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse"></div>
+                <div className="bg-slate-200 h-32 sm:h-auto p-4 min-w-full sm:min-w-[145px] animate-pulse"></div>
                 <div className="p-4 grid w-full gap-2">
                   <h2
                     className="font-medium text-base md:text-lg bg-slate-200 animate-pulse p-1 rounded-full"
@@ -86,24 +86,24 @@ const HorizontialCardProduct = ({ category, heading }) => {
               <Link
                 key={product._id}
                 to={`product/${product._id}`}
-                className="w-full min-w-[200px] md:min-w-[320px] max-w-[200px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex"
+                className="w-full min-w-[260px] sm:min-w-[320px] max-w-[260px] sm:max-w-[320px] min-h-[160px] bg-white rounded-xl shadow flex flex-col sm:flex-row overflow-hidden"
               >
-                <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
+                <div className="bg-slate-200 h-32 sm:h-auto p-4 min-w-full sm:min-w-[145px] flex items-center justify-center">
                   <img
                     src={product.productImage[0]}
                     alt={product.productName || 'Product Image'}
-                    className="object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply"
+                    className="object-scale-down h-full w-full hover:scale-110 transition-all mix-blend-multiply"
                   />
                 </div>
-                <div className="p-4 grid">
-                  <h2 className="font-medium text-base md:text-lg text-black">{product.productName}</h2>
-                  <p className="capitalize text-slate-600">{product.category}</p>
-                  <div className="flex gap-3">
+                <div className="p-4 grid gap-2 flex-1">
+                  <h2 className="font-medium text-base md:text-lg text-black line-clamp-2">{product.productName}</h2>
+                  <p className="capitalize text-slate-600 text-sm sm:text-base">{product.category}</p>
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     <p className="text-red-600 font-medium text-sm">{displayINRCurrency(product.sellingPrice)}</p>
                     <p className="text-slate-500 line-through text-sm">{displayINRCurrency(product.price)}</p>
                   </div>
                   <button
-                    className="text-sm bg-red-500 hover:bg-red-700 text-white px-2 py-0.5 rounded-full"
+                    className="text-sm bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded-full w-full sm:w-fit"
                     onClick={(e) => handleAddToCart(e, product._id)}
                   >
                     Add to Cart

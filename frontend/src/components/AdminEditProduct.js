@@ -7,6 +7,7 @@ import DisplayImage from './DisplayImage';
 import { MdDelete } from "react-icons/md";
 import SummaryApi from '../common';
 import {toast} from "react-toastify"
+import { getAuthHeaders } from '../helpers/auth';
 
 const AdminEditProduct = ({
  onClose,
@@ -69,10 +70,9 @@ const AdminEditProduct = ({
     
         const response = await fetch(SummaryApi.updateProduct.url,{
             method: SummaryApi.updateProduct.method,
-            credentials:"include",
-            headers:{
+            headers:getAuthHeaders({
                 "Content-Type" : "application/json"
-            },
+            }),
             body:JSON.stringify(data)
         })
     
@@ -89,8 +89,8 @@ const AdminEditProduct = ({
     
     }
   return (
-      <div className='fixed w-full h-full bg-slate-200 bg-opacity-35 right-0 left-0 top-0 bottom-0 flex justify-center items-center cursor-pointer'>
-            <div className='bg-white p-4 rounded w-full max-w-2xl h-full max-h-[80%] overflow-hidden'>
+      <div className='fixed w-full h-full bg-slate-900/40 right-0 left-0 top-0 bottom-0 flex justify-center items-center cursor-pointer p-3 sm:p-4 z-50'>
+            <div className='bg-white p-4 rounded-xl w-full max-w-2xl h-full max-h-[92vh] overflow-hidden'>
                 <div className='flex justify-between items-center pb-3'> 
                 <h2 className='font-bold text-lg'>Edit Product</h2>
                 <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer'onClick={onClose}>
@@ -98,7 +98,7 @@ const AdminEditProduct = ({
     
                 </div>
                 </div>
-                <form className='grid p-4 gap-2 overflow-y-scroll h-full pb-5 'onSubmit={handleSubmit}>
+                <form className='grid p-1 sm:p-4 gap-2 overflow-y-auto h-full pb-5 'onSubmit={handleSubmit}>
                     <label htmlFor='productName'> Product Name :</label>
                     <input
                     type="text"
@@ -152,7 +152,7 @@ const AdminEditProduct = ({
                             
                             {
                                 data?.productImage[0] ?(
-                                 <div className='flex items-center gap-2'> 
+                                 <div className='flex items-center gap-2 flex-wrap'> 
                                     {
                                         data.productImage.map((el,index)=>{
                                             return(

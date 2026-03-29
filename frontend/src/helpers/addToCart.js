@@ -1,6 +1,7 @@
 
 import {toast} from "react-toastify"
 import SummaryApi from "../common"
+import { getAuthHeaders } from "./auth"
 
 
 const addToCard = async(e,id)=>{
@@ -9,10 +10,9 @@ const addToCard = async(e,id)=>{
 
  const response = await fetch(SummaryApi.addToCart.url,{
     method:SummaryApi.addToCart.method,
-    credentials :"include",
-    headers:{
+    headers:getAuthHeaders({
       "Content-Type":"application/json"
-    },
+    }),
     body:JSON.stringify(
         {productId :id}
     )

@@ -21,12 +21,12 @@ const CategoryList = () => {
     }, [])
 
     return (
-        <div className='container mx-auto p-4'>
-            <div className='flex items-center gap-4 justify-between overflow-scroll scrollbar-none'>
+        <div className='container mx-auto px-3 sm:px-4 py-4'>
+            <div className='flex items-start gap-3 sm:gap-4 overflow-x-auto scrollbar-none pb-2'>
                 {loading ? (
                     categoryLoading.map((el, index) => (
                         <div
-                            className='h-16 w-16 md:h-20 md:w-20 rounded-full overflow-hidden bg-slate-200 animate-pulse'
+                            className='flex-shrink-0 h-16 w-16 md:h-20 md:w-20 rounded-full overflow-hidden bg-slate-200 animate-pulse'
                             key={"categoryLoading" + index}
                         />
                     ))
@@ -34,7 +34,7 @@ const CategoryList = () => {
                     categoryProduct.map((product, index) => (
                         <Link
                             to={"/product-category?category=" + product?.category}
-                            className='cursor-pointer'
+                            className='cursor-pointer flex-shrink-0 w-16 md:w-20'
                             key={product?.category}
                         >
                             <div className='h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden p-3 bg-slate-200 flex items-center justify-center'>
@@ -44,7 +44,7 @@ const CategoryList = () => {
                                     className='h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all'
                                 />
                             </div>
-                            <p className='text-center text-sm md:text-base capitalize'>{product?.category}</p>
+                            <p className='text-center text-xs sm:text-sm md:text-base capitalize break-words'>{product?.category}</p>
                         </Link>
                     ))
                 )}

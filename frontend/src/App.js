@@ -9,36 +9,59 @@ import SummaryApi from './common';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
+import { clearAuthToken, getAuthHeaders, getAuthToken } from './helpers/auth';
 
 function App() {
   const dispatch = useDispatch();
   const [cartProductCount, setCartProductCount] = useState(0);
 
-  // ✅ useCallback so React knows these functions are stable (don’t change)
   const fetchUserDetails = useCallback(async () => {
+    const token = getAuthToken();
+
+    if (!token) {
+      dispatch(setUserDetails(null));
+      return;
+    }
+
     const dataResponse = await fetch(SummaryApi.current_user.url, {
       method: SummaryApi.current_user.method,
-      credentials: "include",
+      headers: getAuthHeaders(),
     });
     const dataApi = await dataResponse.json();
     if (dataApi.success) {
       dispatch(setUserDetails(dataApi.data));
+      return;
     }
+
+    clearAuthToken();
+    dispatch(setUserDetails(null));
   }, [dispatch]);
 
   const fetchUserAddToCart = useCallback(async () => {
+    const token = getAuthToken();
+
+    if (!token) {
+      setCartProductCount(0);
+      return;
+    }
+
     const dataResponse = await fetch(SummaryApi.countAddToCartProduct.url, {
       method: SummaryApi.countAddToCartProduct.method,
-      credentials: "include",
+      headers: getAuthHeaders(),
     });
     const dataApi = await dataResponse.json();
-    setCartProductCount(dataApi?.data?.count || 0);
+    if (dataApi.success) {
+      setCartProductCount(dataApi?.data?.count || 0);
+      return;
+    }
+
+    setCartProductCount(0);
   }, []);
 
   useEffect(() => {
     fetchUserDetails();
     fetchUserAddToCart();
-  }, [fetchUserDetails, fetchUserAddToCart]); // ✅ Now warning-free
+  }, [fetchUserDetails, fetchUserAddToCart]);
 
   return (
     <>
@@ -66,7 +89,7 @@ function App() {
         />
 
         <Headers />
-        <main className="min-h-[calc(100vh-110px)] pt-16">
+        <main className="min-h-[calc(100vh-120px)] pt-28 sm:pt-24">
           <Outlet />
         </main>
         <Footer />

@@ -23,13 +23,15 @@ const SearchProduct = () => {
   }, [fetchProduct]);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-3 sm:px-4 py-4">
       {loading && <p className="text-lg text-center">Loading....</p>}
 
-      <p className="text-lg font-semibold my-3">Search Results: {data.length}</p>
+      <div className="bg-white rounded-xl shadow-sm p-4 mb-4">
+        <p className="text-base sm:text-lg font-semibold">Search Results: {data.length}</p>
+      </div>
 
       {data.length === 0 && !loading && (
-        <p className="bg-white text-lg p-2 text-center">
+        <p className="bg-white text-base sm:text-lg p-4 rounded-xl text-center">
           No data found. Please check your search term.
         </p>
       )}

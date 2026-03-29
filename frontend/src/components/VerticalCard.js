@@ -16,14 +16,14 @@ const VerticalCard = ({ loading, data = [] }) => {
   }
 
   return (
-    <div className='grid grid-cols-[repeat(auto-fit,minmax(200px,300px))] justify-center md:justify-between md:gap-4 overflow-x-scroll scrollbar-none transition-all'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 justify-items-center transition-all'>
       {loading
         ? loadingList.map((_, index) => (
             <div
-              className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow'
+              className='w-full max-w-[320px] bg-white rounded-xl shadow overflow-hidden'
               key={'loading' + index}
             >
-              <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse'></div>
+              <div className='bg-slate-200 h-48 p-4 flex justify-center items-center animate-pulse'></div>
               <div className='p-4 grid gap-2'>
                 {/* Skeleton heading with visually hidden content */}
                 <h2 className='sr-only'>Loading product</h2>
@@ -47,28 +47,28 @@ const VerticalCard = ({ loading, data = [] }) => {
         : data.map((product) => (
             <Link
               to={'/product/' + product?._id}
-              className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] gap-2 bg-white rounded-sm shadow'
+              className='w-full max-w-[320px] gap-2 bg-white rounded-xl shadow overflow-hidden'
               onClick={scrollTop}
               key={product?._id}
             >
-              <div className='bg-slate-200 h-44 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
+              <div className='bg-slate-200 h-44 p-4 flex justify-center items-center'>
                 <img
                   src={product?.productImage[0]}
                   alt={product?.productName || 'Product image'}
-                  className='object-scale-down h-full hover:scale-110 transition-all'
+                  className='object-scale-down h-full w-full hover:scale-110 transition-all'
                 />
               </div>
               <div className='p-4 grid gap-2'>
-                <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>
+                <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-2 text-black min-h-[48px]'>
                   {product?.productName}
                 </h2>
-                <p className='capitalize text-slate-600'>{product?.category}</p>
-                <div className='flex gap-3'>
+                <p className='capitalize text-slate-600 text-sm sm:text-base'>{product?.category}</p>
+                <div className='flex flex-wrap gap-2 sm:gap-3'>
                   <p className='text-red-600 font-medium'>{displayINRCurrency(product?.sellingPrice)}</p>
                   <p className='text-slate-500 line-through'>{displayINRCurrency(product?.price)}</p>
                 </div>
                 <button
-                  className='text-sm bg-red-500 hover:bg-red-700 text-white px-2 py-1 rounded-full'
+                  className='text-sm bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded-full w-full'
                   onClick={(e) => handleAddToCart(e, product?._id)}
                 >
                   Add to cart

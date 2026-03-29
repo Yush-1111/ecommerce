@@ -6,7 +6,7 @@ import VerticalCardProduct from '../components/VerticalCardProduct'
 
 const Home = () => {
   return (
-    <div>
+    <div className='pb-4'>
       <CategoryList/>
       <BannerProduct/>
 

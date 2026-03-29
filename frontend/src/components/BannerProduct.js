@@ -36,16 +36,16 @@ const BannerProduct = () => {
     }, [nextImage])
 
     return (
-        <div className='container mx-auto px-4 rounded'>
-            <div className='h-56 md:h-96 w-full bg-slate-200 relative'>
+        <div className='container mx-auto px-3 sm:px-4 rounded'>
+            <div className='h-48 sm:h-56 md:h-80 lg:h-96 w-full bg-slate-200 relative overflow-hidden rounded-2xl'>
 
                 {/* Navigation Buttons for Desktop */}
-                <div className='absolute z-10 h-full w-full md:flex items-center hidden'>
+                <div className='absolute z-10 h-full w-full md:flex items-center hidden px-3'>
                     <div className='flex justify-between text-2xl w-full'>
-                        <button onClick={prevImage} className='bg-white shadow-md rounded-full p-1'>
+                        <button onClick={prevImage} className='bg-white/90 shadow-md rounded-full p-2'>
                             <FaAngleLeft />
                         </button>
-                        <button onClick={nextImage} className='bg-white shadow-md rounded-full p-1'>
+                        <button onClick={nextImage} className='bg-white/90 shadow-md rounded-full p-2'>
                             <FaAngleRight />
                         </button>
                     </div>
@@ -85,6 +85,14 @@ const BannerProduct = () => {
                     ))}
                 </div>
 
+                <div className='absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2'>
+                    {mobileImages.map((_, index) => (
+                        <span
+                            key={index}
+                            className={`h-2.5 rounded-full transition-all ${currentImage === index ? 'w-6 bg-white' : 'w-2.5 bg-white/60'}`}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     )
