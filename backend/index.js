@@ -5,8 +5,19 @@ const connectDB = require("./Config/db");
 const router = require("./routes");
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ecommerce-mu-eight-74.vercel.app"
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
 }));
 app.use(express.json())
 
