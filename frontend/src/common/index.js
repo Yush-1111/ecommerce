@@ -2,7 +2,7 @@ const backendDomin =
   process.env.REACT_APP_API_URL ||
   (process.env.NODE_ENV === "development"
     ? "http://localhost:8080"
-    : "https://ecommerce-871q.onrender.com")
+    : " https://ecommerce-pze3.onrender.com")
 
 const SummaryApi = {
     signUp :{
